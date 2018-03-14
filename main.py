@@ -23,25 +23,32 @@ def main():
     positionP2 = 230
     ballSpeed = 4
     positionBall = [int(width/2), int(height/2)]
-    ballAngle = random.random() * 350 + 10
-
+    ballAngle = random.random() + 1
+    print("Angle is: ", ballAngle)
     while True:
         drawAll(screen)
         ball = pygame.draw.circle(screen, (255, 0, 0), positionBall, 10)
         player1 = pygame.draw.rect(screen, (0, 0, 255), [15, positionP1, 10, 40])
         player2 = pygame.draw.rect(screen, (0, 0, 255), [width - 22, positionP2, 10, 40])
 
-        positionBall[0] += ballSpeed * math.ceil(math.sin(math.radians(ballAngle)))
-        positionBall[1] += ballSpeed * math.ceil(math.cos(math.radians(ballAngle)))
+        positionBall[0] += int(ballSpeed * math.cos(ballAngle))
+        positionBall[1] += int(ballSpeed * math.sin(ballAngle))
 
-        if positionBall[0] >= 500:
+        if positionBall[0] + 10 >= 500:
             ballSpeed = -4
-        if positionBall[0] <= 0:
+            ballAngle = math.degrees(ballAngle) * 2
+        if positionBall[0] - 10 <= 0:
             ballSpeed = 4
-        if positionBall[1] >= 500:
+            ballAngle = math.degrees(ballAngle) * 2
+        if positionBall[1] + 10 >= 500:
             ballSpeed = -4
-        if positionBall[1] <= 0:
+            ballAngle = math.degrees(ballAngle) * 2
+        if positionBall[1] - 10 <= 0:
             ballSpeed = 4
+            ballAngle = math.degrees(ballAngle) * 2
+        if positionBall[1] == positionP1 - 40 and positionBall[1] == positionP1 and positionBall[0] - 10 == 25:
+            ballSpeed = 4
+            ballAngle = math.degrees(ballAngle) * 2
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
@@ -56,6 +63,8 @@ def main():
         if keys[pygame.K_DOWN]:
             if positionP2 + 40 <= height:
                 positionP2 += 5
+        if keys[pygame.K_SPACE]:
+            ballAngle = random.random() + 1
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
