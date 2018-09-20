@@ -28,8 +28,8 @@ pygame.init()
 pygame.display.set_caption("Ping Pong")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-countUp = 122
-countDown = 115
+countUp = 280
+countDown = 285
 #countStill = 9
 
 positionP1 = [35, 230]
