@@ -13,7 +13,7 @@ def format_all_samples(path="Dataset/"):
             img = img.resize((32, 32))
             img = img.point(lambda x: 0 if x<128 else 255, 'L')
             
-            #img.save(os.path.join(path, filename))
+            img.save(os.path.join("Dataset_Formatted/", filename))
             
             #arr = np.array(img)
             #np.set_printoptions(threshold=np.inf)
