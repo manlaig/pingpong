@@ -64,7 +64,7 @@ def load_data(path="Dataset_Formatted/"):
                 ans.append(2)
     
     return (img, ans)
-    # return (img, ans), (img_test, ans_test)
+    # return (img, ans), (img_test, ans_test)   # make a test set
 
 
 """

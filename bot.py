@@ -9,6 +9,10 @@ class Bot:
     def __init__(self):
         self.model = tf.keras.models.load_model(self.modelName)
 
+    """
+        get a filename as input and predict a move from it
+        ex: pred = bot.getMove("Dataset_Formatted/d-23.jpg")
+    """
     def getMove(self, filename):
         img = Image.open(filename)
         img = img.point(lambda x: 0.0 if x<128 else 1.0, 'L')
@@ -20,9 +24,11 @@ class Bot:
         ans = self.model.predict(np.array(img))
         return ans
         
-
+    """
+        get an array of the grayscale pixel values on the screen
+        predict and return a move
+    """
     def getMoveArray(self, array):
-        # comment this line if running on a CNN model
         # the below line is for running a RNN model
         if self.modelName == "bot_RNN.model":
             array = np.squeeze(np.array(array), axis=3)

@@ -1,6 +1,10 @@
+"""
+    train the RNN here and save the model as a .model file
+"""
+
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Flatten, LSTM, MaxPooling2D
+from tensorflow.keras.layers import Dense, Dropout, Flatten, LSTM
 from dataset import load_data
 import numpy as np
 

@@ -12,10 +12,12 @@ BALL_RADIUS = 10
 BALL_SPEED = 10
 WHITE = (255, 255, 255)
 
+"""
+    returns: 'u' for UP
+             'd' for DOWN
+             's' for STILL
+"""
 def getLabel():
-    # return 'u' for UP
-    # return 'd' for DOWN
-    # return 's' for STILL
     global positionBall, ballSpeed
     global positionP2
     if ballSpeed[0] > 0 and ballSpeed[1] > 0 and positionBall[1] > positionP2[1]:
@@ -23,22 +25,25 @@ def getLabel():
 
 def resetGame():
     global positionBall, ballSpeed
+    global playerScore, botScore
+    print("Human: " + str(playerScore))
+    print("Bot: " + str(botScore))
     positionBall = [int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2)]
     ballSpeed = [BALL_SPEED, -BALL_SPEED if random.randint(0, 1) == 0 else BALL_SPEED]
 
 
 pygame.init()
-np.set_printoptions(threshold=np.inf)
-
 bot = Bot()
 
-#pred = bot.getMove("Dataset_Formatted/d-23.jpg")
+np.set_printoptions(threshold=np.inf)
 
 pygame.display.set_caption("Pong")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-countUp = 752
-countDown = 740
+playerScore = 0
+botScore = 0
+countUp = 760
+countDown = 755
 #countStill = 9
 
 positionP1 = [35, 230]
@@ -49,11 +54,12 @@ positionBall = [int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2)]
 # game loop
 while True:
     screen.fill((0, 0, 0))
-    ball = pygame.draw.circle(screen, WHITE, positionBall, BALL_RADIUS)
-    player1 = pygame.draw.rect(screen, WHITE, [positionP1[0], positionP1[1], WIDTH_PLAYER, HEIGHT_PLAYER])
-    player2 = pygame.draw.rect(screen, WHITE, [positionP2[0], positionP2[1], WIDTH_PLAYER, HEIGHT_PLAYER])
+    pygame.draw.circle(screen, WHITE, positionBall, BALL_RADIUS)
+    pygame.draw.rect(screen, WHITE, [positionP1[0], positionP1[1], WIDTH_PLAYER, HEIGHT_PLAYER])
+    pygame.draw.rect(screen, WHITE, [positionP2[0], positionP2[1], WIDTH_PLAYER, HEIGHT_PLAYER])
 
 
+    # predict a move from the bot
     sc = pygame.surfarray.array3d(screen)
     pred = bot.getMoveArray(format_array(sc))
     index = np.argmax(pred)
@@ -69,13 +75,16 @@ while True:
         if positionP2[1] + HEIGHT_PLAYER <= SCREEN_HEIGHT:
             positionP2[1] += PLAYER_SPEED
     elif index == 2:
+        # STILL
         print("STAY")
 
+
+    # update ball position
     positionBall[0] += ballSpeed[0]
     positionBall[1] += ballSpeed[1]
 
 
-    # ball collision check on the walls
+    # ball collision check on walls
     if positionBall[1] <= BALL_RADIUS:
         ballSpeed[1] = -ballSpeed[1]
 
@@ -83,10 +92,13 @@ while True:
         ballSpeed[1] = -ballSpeed[1]
 
     if positionBall[0] <= BALL_RADIUS:
+        botScore += 1
         resetGame()
 
     if positionBall[0] + BALL_RADIUS >= SCREEN_WIDTH:
+        playerScore += 1
         resetGame()
+
 
     # ball collison check on 2 paddles
     if positionBall[0] - BALL_RADIUS <= positionP1[0] and positionBall[1] >= positionP1[1] - 5 and positionBall[1] <= positionP1[1] + HEIGHT_PLAYER + 5:
@@ -119,12 +131,13 @@ while True:
         #pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
         if positionP2[1] + HEIGHT_PLAYER <= SCREEN_HEIGHT:
             positionP2[1] += PLAYER_SPEED
-    """
 
     #else:
         #countStill += 1
         #pygame.image.save(screen, "Dataset/" + "s-" + str(countStill) + ".jpg")
+    """
 
+    # just to reset the ball
     if keys[pygame.K_SPACE]:
         positionBall = [int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2)]
     
