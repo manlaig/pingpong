@@ -7,7 +7,7 @@ SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
 WIDTH_PLAYER = 15
 HEIGHT_PLAYER = 75
-PLAYER_SPEED = 30
+PLAYER_SPEED = 17
 BALL_RADIUS = 10
 BALL_SPEED = 10
 WHITE = (255, 255, 255)
@@ -24,7 +24,7 @@ def getLabel():
 def resetGame():
     global positionBall, ballSpeed
     positionBall = [int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2)]
-    ballSpeed = [BALL_SPEED, BALL_SPEED]
+    ballSpeed = [BALL_SPEED, -BALL_SPEED if random.randint(0, 1) == 0 else BALL_SPEED]
 
 
 pygame.init()
@@ -60,13 +60,16 @@ while True:
 
     if index == 0:
         # UP
+        print("UP")
         if positionP2[1] >= 0:
             positionP2[1] -= PLAYER_SPEED
     elif index == 1:
         # DOWN
+        print("DOWN")
         if positionP2[1] + HEIGHT_PLAYER <= SCREEN_HEIGHT:
             positionP2[1] += PLAYER_SPEED
-
+    elif index == 2:
+        print("STAY")
 
     positionBall[0] += ballSpeed[0]
     positionBall[1] += ballSpeed[1]
@@ -133,5 +136,5 @@ while True:
             pygame.quit()
             sys.exit()
 
-    pygame.time.Clock().tick(30)
+    pygame.time.Clock().tick(50)
     pygame.display.flip()   # update screen

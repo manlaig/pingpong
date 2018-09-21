@@ -3,7 +3,6 @@ import os
 from PIL import Image
 import numpy as np
 
-assert os.path.isdir("Dataset/"), "Dataset folder not found"
 assert os.path.isdir("Dataset_Formatted/"), "Dataset_Formatted folder not found"
 
 
@@ -52,17 +51,18 @@ def load_data(path="Dataset_Formatted/"):
     ans = []
 
     for filename in os.listdir(os.path.join(path)):
-        img_sample = Image.open(os.path.join(path, filename))
-        img_sample = img_sample.point(lambda x: 0.0 if x<128 else 1.0, 'L')
-        img.append(np.array(img_sample))
+        if filename[0] != ".":
+            img_sample = Image.open(os.path.join(path, filename))
+            img_sample = img_sample.point(lambda x: 0.0 if x<128 else 1.0, 'L')
+            img.append(np.array(img_sample))
 
-        if filename[0] == "u":
-            ans.append(0)
-        elif filename[0] == "d":
-            ans.append(1)
-        elif filename[0] == "s":
-            ans.append(2)
-
+            if filename[0] == "u":
+                ans.append(0)
+            elif filename[0] == "d":
+                ans.append(1)
+            elif filename[0] == "s":
+                ans.append(2)
+    
     return (img, ans)
     # return (img, ans), (img_test, ans_test)
 
