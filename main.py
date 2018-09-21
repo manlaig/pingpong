@@ -1,4 +1,7 @@
 import pygame, sys, random, math
+from bot import Bot
+from dataset import format_array
+import numpy as np
 
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
@@ -25,11 +28,17 @@ def resetGame():
 
 
 pygame.init()
+np.set_printoptions(threshold=np.inf)
+
+bot = Bot()
+
+#pred = bot.getMove("Dataset_Formatted/d-23.jpg")
+
 pygame.display.set_caption("Ping Pong")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-countUp = 408
-countDown = 426
+countUp = 752
+countDown = 740
 #countStill = 9
 
 positionP1 = [35, 230]
@@ -43,6 +52,20 @@ while True:
     ball = pygame.draw.circle(screen, WHITE, positionBall, BALL_RADIUS)
     player1 = pygame.draw.rect(screen, WHITE, [positionP1[0], positionP1[1], WIDTH_PLAYER, HEIGHT_PLAYER])
     player2 = pygame.draw.rect(screen, WHITE, [positionP2[0], positionP2[1], WIDTH_PLAYER, HEIGHT_PLAYER])
+
+
+    sc = pygame.surfarray.array3d(screen)
+    pred = bot.getMoveArray(format_array(sc))
+    index = np.argmax(pred)
+
+    if index == 0:
+        # UP
+        if positionP2[1] >= 0:
+            positionP2[1] -= PLAYER_SPEED
+    elif index == 1:
+        # DOWN
+        if positionP2[1] + HEIGHT_PLAYER <= SCREEN_HEIGHT:
+            positionP2[1] += PLAYER_SPEED
 
 
     positionBall[0] += ballSpeed[0]
@@ -81,17 +104,20 @@ while True:
         if positionP1[1] + HEIGHT_PLAYER <= SCREEN_HEIGHT:
             positionP1[1] += PLAYER_SPEED
 
+    """
     if keys[pygame.K_UP]:
-        countUp += 1
-        pygame.image.save(screen, "Dataset/" + "u-" + str(countUp) + ".jpg")
+        #countUp += 1
+        #pygame.image.save(screen, "Dataset/" + "u-" + str(countUp) + ".jpg")
         if positionP2[1] >= 0:
             positionP2[1] -= PLAYER_SPEED
 
     if keys[pygame.K_DOWN]:
-        countDown += 1
-        pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
+        #countDown += 1
+        #pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
         if positionP2[1] + HEIGHT_PLAYER <= SCREEN_HEIGHT:
             positionP2[1] += PLAYER_SPEED
+    """
+
     #else:
         #countStill += 1
         #pygame.image.save(screen, "Dataset/" + "s-" + str(countStill) + ".jpg")
@@ -107,5 +133,5 @@ while True:
             pygame.quit()
             sys.exit()
 
-    pygame.time.Clock().tick(20)
+    pygame.time.Clock().tick(30)
     pygame.display.flip()   # update screen
