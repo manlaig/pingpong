@@ -34,7 +34,7 @@ bot = Bot()
 
 #pred = bot.getMove("Dataset_Formatted/d-23.jpg")
 
-pygame.display.set_caption("Ping Pong")
+pygame.display.set_caption("Pong")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 countUp = 752
