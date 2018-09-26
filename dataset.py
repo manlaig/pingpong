@@ -2,6 +2,7 @@ import sys
 import os
 from PIL import Image
 import numpy as np
+from random import shuffle
 
 assert os.path.isdir("Dataset_Formatted/"), "Dataset_Formatted folder not found"
 
@@ -50,7 +51,8 @@ def load_data(path="Dataset_Formatted/"):
     img = []
     ans = []
 
-    for filename in os.listdir(os.path.join(path)):
+    shuffle(os.listdir(path))
+    for filename in os.listdir(path):
         if filename[0] != ".":
             img_sample = Image.open(os.path.join(path, filename))
             img_sample = img_sample.point(lambda x: 0.0 if x<128 else 1.0, 'L')
