@@ -7,6 +7,7 @@ Currently trying to train the network using multiple frames and use the trained 
 
 ## Current network performance
 The right side is the neural network predicting moves
+
 <a href="https://imgflip.com/gif/2ih1r3"><img src="https://i.imgflip.com/2ih1r3.gif" title="Human vs. Bot"/></a>
 
 ## Installation
