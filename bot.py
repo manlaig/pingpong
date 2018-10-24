@@ -3,11 +3,9 @@ import numpy as np
 from PIL import Image
 
 class Bot:
-
-    modelName = "bot_RNN.model"
-
-    def __init__(self):
-        self.model = tf.keras.models.load_model(self.modelName)
+    def __init__(self, modelName):
+        self.modelName = modelName
+        self.model = tf.keras.models.load_model(modelName)
 
     """
         get a filename as input and predict a move from it
@@ -25,7 +23,7 @@ class Bot:
         return ans
         
     """
-        get an array of the grayscale pixel values on the screen
+        get an array of the grayscale pixel values on the screen,
         predict and return a move
     """
     def getMoveArray(self, array):
