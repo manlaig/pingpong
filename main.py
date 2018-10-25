@@ -42,24 +42,33 @@ def predictBotMove():
 def collectDatasets(images=False):
     global countDown, countUp, countStill
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP]:
+
+    if keys[pygame.K_UP] and countUp < 5000:
         if images:
             pygame.image.save(screen, "Dataset/" + "u-" + str(countUp) + ".jpg")
-            countUp += 1
         else:
-            dataset_file.write("[" + str(ballSpeed[0]) + "," + str(ballSpeed[1]) + "," + str(positionP2[1]) + "]")
-    elif keys[pygame.K_DOWN]:
+            dataset_file.write(getDatasetFileName(0))
+        countUp += 1
+
+    elif keys[pygame.K_DOWN] and countDown < 5000:
         if images:
             pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
-            countDown += 1
         else:
-            dataset_file.write("[" + str(ballSpeed[0]) + "," + str(ballSpeed[1]) + "," + str(positionP2[1]) + "]")
-    else:
+            dataset_file.write(getDatasetFileName(1))
+        countDown += 1
+
+    elif countStill < 5000:
         if images:
             pygame.image.save(screen, "Dataset/" + "s-" + str(countStill) + ".jpg")
-            countStill += 1
         else:
-            dataset_file.write("[" + str(ballSpeed[0]) + "," + str(ballSpeed[1]) + "," + str(positionP2[1]) + "]")
+            dataset_file.write(getDatasetFileName(2))
+        countStill += 1
+
+
+def getDatasetFileName(label):
+    s = (str(ballSpeed[0]) + "," + str(ballSpeed[1]) + "," + str(positionBall[0]) + "," + str(positionBall[1])
+        + "," + str(positionP2[1]) + "," + str(label) + "\n")
+    return s
 
 
 def updateBallPosition():
@@ -155,13 +164,16 @@ while True:
     ballCollisionOnWalls()
     ballCollisionOnPaddles()
 
+    collectDatasets()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            dataset_file.close()
             pygame.quit()
             sys.exit()
-            #print("countUp is at: " + str(countUp))
-            #print("countDown is at: " + str(countDown))
-            #print("countStill is at: " + countStill)
+            print("countUp is at: " + str(countUp))
+            print("countDown is at: " + str(countDown))
+            print("countStill is at: " + countStill)
 
-    pygame.time.Clock().tick(50)
+    pygame.time.Clock().tick(100)
     pygame.display.flip()   # update screen

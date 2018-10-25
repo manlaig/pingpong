@@ -6,7 +6,6 @@ from random import shuffle
 
 assert os.path.isdir("Dataset_Formatted/"), "Dataset_Formatted folder not found"
 
-
 """
     get a screenshot and resize it to 32 by 32 and change the color space to grayscale
     this is basically formatting the dataset for the training
@@ -23,9 +22,7 @@ def format_all_samples(path="Dataset/"):
             img.save(os.path.join("Dataset_Formatted/", filename))
 
 
-"""
-    get array as input and prepare it to feed through the model
-"""
+# get array as input and prepare it to feed through the model
 def format_array(array):
     img = Image.fromarray(array, "RGB")
     img = img.convert("L")
@@ -40,6 +37,21 @@ def format_array(array):
 
     return img_arr
 
+
+def load_data_text_file(filename="dataset.txt"):
+    assert os.path.exists(filename), filename + " not found"
+
+    file = open(filename, "r")
+    datasets = []
+    labels = []
+
+    for line in file:
+        line = line[:-1]   # ignoring \n
+        s = line.split(",")
+        labels.append(int(s[5]))
+        datasets.append(np.array(s[:5]))
+    
+    return (datasets, labels)
 
 
 """
