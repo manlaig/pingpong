@@ -35,14 +35,15 @@ def resetGame():
 
 
 def predictBotMove():
-    if modelName != "model_ANN":
+    if modelName != "bot_ANN.model":
         sc = pygame.surfarray.array3d(screen)
         pred = bot.getMoveArray(format_array(sc))
         index = np.argmax(pred)
         return index
     else:
-
-        return 0 # write here
+        pred = bot.getMoveText(ballSpeed, positionBall, positionP2[1])
+        index = np.argmax(pred)
+        return index
 
 
 def collectDatasets(images=False):
@@ -140,8 +141,9 @@ def ballCollisionOnPaddles():
         ballSpeed[0] = -ballSpeed[0]
 
 
-modelName = str(input("Select model: ANN, CNN, or RNN: "))
-bot = Bot("bot_" + modelName + ".model")
+#modelName = str(input("Select model: ANN, CNN, or RNN: "))
+modelName = "bot_ANN.model"
+bot = Bot(modelName)
 
 pygame.init()
 pygame.display.set_caption("Pong")
@@ -162,7 +164,7 @@ while True:
     render()
     updateBallPosition()
     updatePlayerPosition()
-    #updateBotPosition()
+    updateBotPosition()
     ballCollisionOnWalls()
     ballCollisionOnPaddles()
 

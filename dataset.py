@@ -51,7 +51,6 @@ def load_data_text_file(filename="dataset.txt"):
         s = list(map(int, s))
         labels.append(int(s[5]))
         datasets.append(np.array(s[:5]))
-    
     return (datasets, labels)
 
 
@@ -130,4 +129,4 @@ def getTotalTextDatasetCount(filename="dataset.txt"):
     print("Still files: " + str(sFiles))
     print("Total files: " + str(uFiles + sFiles + dFiles))
 
-getTotalTextDatasetCount()
+load_data_text_file()

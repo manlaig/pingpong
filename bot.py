@@ -34,5 +34,9 @@ class Bot:
         return ans
 
     
-    def getMoveText(self, ballSpeedX, ballSpeedY, positionBallX, positionBallY, positionP2Y, label):
-        pass
+    def getMoveText(self, ballSpeed, positionBall, positionP2Y):
+        arr = np.array([ballSpeed[0], ballSpeed[1], positionBall[0], positionBall[1], positionP2Y])
+        arr = arr[..., np.newaxis]        
+        arr = arr[np.newaxis, :]
+        ans = self.model.predict(arr)
+        return ans
