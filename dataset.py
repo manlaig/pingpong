@@ -129,4 +129,4 @@ def getTotalTextDatasetCount(filename="dataset.txt"):
     print("Still files: " + str(sFiles))
     print("Total files: " + str(uFiles + sFiles + dFiles))
 
-load_data_text_file()
+getTotalTextDatasetCount()

@@ -13,8 +13,8 @@ BALL_RADIUS = 10
 BALL_SPEED = 10
 WHITE = (255, 255, 255)
 
-countUp = 6000
-countDown = 6000
+countUp = 6635
+countDown = 6638
 countStill = 6000
 
 
@@ -50,14 +50,14 @@ def collectDatasets(images=False):
     global countDown, countUp, countStill
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_UP] and countUp < 6000:
+    if keys[pygame.K_UP] and countUp < 10000:
         if images:
             pygame.image.save(screen, "Dataset/" + "u-" + str(countUp) + ".jpg")
         else:
             dataset_file.write(getDatasetFileName(0))
         countUp += 1
 
-    elif keys[pygame.K_DOWN] and countDown < 6000:
+    elif keys[pygame.K_DOWN] and countDown < 10000:
         if images:
             pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
         else:
@@ -141,8 +141,7 @@ def ballCollisionOnPaddles():
         ballSpeed[0] = -ballSpeed[0]
 
 
-#modelName = str(input("Select model: ANN, CNN, or RNN: "))
-modelName = "bot_ANN.model"
+modelName = "bot_" + input("Select model: ANN, CNN, or RNN: ").upper() + ".model"
 bot = Bot(modelName)
 
 pygame.init()
@@ -168,6 +167,7 @@ while True:
     ballCollisionOnWalls()
     ballCollisionOnPaddles()
 
+    #collectDatasets()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -178,5 +178,5 @@ while True:
             pygame.quit()
             sys.exit()
 
-    pygame.time.Clock().tick(250)
+    pygame.time.Clock().tick(100)
     pygame.display.flip()   # update screen
