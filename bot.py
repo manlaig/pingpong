@@ -32,3 +32,7 @@ class Bot:
             array = np.squeeze(np.array(array), axis=3)
         ans = self.model.predict(array)
         return ans
+
+    
+    def getMoveText(self, ballSpeedX, ballSpeedY, positionBallX, positionBallY, positionP2Y, label):
+        pass

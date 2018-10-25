@@ -8,10 +8,14 @@ SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
 WIDTH_PLAYER = 15
 HEIGHT_PLAYER = 75
-PLAYER_SPEED = 17
+PLAYER_SPEED = 22
 BALL_RADIUS = 10
 BALL_SPEED = 10
 WHITE = (255, 255, 255)
+
+countUp = 6000
+countDown = 6000
+countStill = 6000
 
 
 def render():
@@ -26,7 +30,8 @@ def resetGame():
     print("Human: " + str(playerScore))
     print("Bot: " + str(botScore))
     positionBall = [int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2)]
-    ballSpeed = [BALL_SPEED, BALL_SPEED]
+    ballSpeed = [BALL_SPEED if random.randint(0, 1) == 1 else -BALL_SPEED,
+                 BALL_SPEED if random.randint(0, 1) == 1 else -BALL_SPEED]
 
 
 def predictBotMove():
@@ -36,6 +41,7 @@ def predictBotMove():
         index = np.argmax(pred)
         return index
     else:
+
         return 0 # write here
 
 
@@ -43,21 +49,21 @@ def collectDatasets(images=False):
     global countDown, countUp, countStill
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_UP] and countUp < 5000:
+    if keys[pygame.K_UP] and countUp < 6000:
         if images:
             pygame.image.save(screen, "Dataset/" + "u-" + str(countUp) + ".jpg")
         else:
             dataset_file.write(getDatasetFileName(0))
         countUp += 1
 
-    elif keys[pygame.K_DOWN] and countDown < 5000:
+    elif keys[pygame.K_DOWN] and countDown < 6000:
         if images:
             pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
         else:
             dataset_file.write(getDatasetFileName(1))
         countDown += 1
 
-    elif countStill < 5000:
+    elif countStill < 6000:
         if images:
             pygame.image.save(screen, "Dataset/" + "s-" + str(countStill) + ".jpg")
         else:
@@ -143,10 +149,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 np.set_printoptions(threshold=np.inf)
 
-countUp = 0
-countDown = 0
-countStill = 0
-
 playerScore = 0
 botScore = 0
 positionP1 = [35, 230]
@@ -160,20 +162,19 @@ while True:
     render()
     updateBallPosition()
     updatePlayerPosition()
-    updateBotPosition()
+    #updateBotPosition()
     ballCollisionOnWalls()
     ballCollisionOnPaddles()
 
-    collectDatasets()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            print("countUp is at: " + str(countUp))
+            print("countDown is at: " + str(countDown))
+            print("countStill is at: " + str(countStill))
             dataset_file.close()
             pygame.quit()
             sys.exit()
-            print("countUp is at: " + str(countUp))
-            print("countDown is at: " + str(countDown))
-            print("countStill is at: " + countStill)
 
-    pygame.time.Clock().tick(100)
+    pygame.time.Clock().tick(250)
     pygame.display.flip()   # update screen

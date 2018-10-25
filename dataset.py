@@ -48,6 +48,7 @@ def load_data_text_file(filename="dataset.txt"):
     for line in file:
         line = line[:-1]   # ignoring \n
         s = line.split(",")
+        s = list(map(int, s))
         labels.append(int(s[5]))
         datasets.append(np.array(s[:5]))
     
@@ -85,7 +86,7 @@ def load_data(path="Dataset_Formatted/"):
     prints out how many files for moving UP, DOWN, STILL there is
     and prints out the total file count
 """
-def getTotalFileCount():
+def getTotalImageCount():
     sFiles = 0
     uFiles = 0
     dFiles = 0
@@ -104,3 +105,29 @@ def getTotalFileCount():
     print("dFiles: " + str(dFiles))
     print("uFiles: " + str(uFiles))
     print("Total: " + str(uFiles + sFiles + dFiles))
+
+
+def getTotalTextDatasetCount(filename="dataset.txt"):
+    assert os.path.exists(filename), filename + " not found"
+
+    sFiles = 0
+    uFiles = 0
+    dFiles = 0
+
+    file = open(filename, "r")
+
+    for line in file:
+        line = line[:-1]
+        
+        if line[-1] == "2":
+            sFiles += 1
+        elif line[-1] == "1":
+            dFiles += 1
+        elif line[-1] == "0":
+            uFiles += 1
+    print("Up files: " + str(uFiles))
+    print("Down files: " + str(dFiles))
+    print("Still files: " + str(sFiles))
+    print("Total files: " + str(uFiles + sFiles + dFiles))
+
+getTotalTextDatasetCount()
