@@ -1,12 +1,8 @@
 ## LSTM network to play Pong
 
-A neural network trained to play Pong.
+This is an attempt to train a neural network to play Pong.
 
-## Project Status
-
-Currently trying to train the network using multiple frames and use the trained model to predict a move by feeding it with multiple frames at the same time.
-
-## Current network performance
+## Bot performance
 
 The right side is the neural network predicting moves
 
@@ -32,10 +28,9 @@ Installation:
 
 ## Reflection
 
-This is a project for me to learn more about Deep Learning and especially get familiar with Recurrent Neural Networks and train neural networks with sequensive data.  
+This is a project for me to learn about Deep Learning and especially get familiar with Recurrent Neural Networks and train neural networks with sequensive data. 
 
 Originally I wanted to train a neural network that can make accurate move predictions by looking at game screenshots
 
-One of the main challenges I ran into was collecting data and preparing it to train the network. Also, training the network to take into account the ball's velocity. Later, I will train the network again, but with multiple subsequent frames, so that it can learn the velocity of the ball.
+One of the main challenges I ran into was collecting data and preparing it to train the network. Also, training the network to take into account the ball's velocity.
 
-In the future, I want to use Reinformencement Learning instead of Supervised Learning.
