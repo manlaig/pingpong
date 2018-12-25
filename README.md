@@ -3,13 +3,17 @@
 A neural network trained to play Pong.
 
 ## Project Status
+
 Currently trying to train the network using multiple frames and use the trained model to predict a move by feeding it with multiple frames at the same time.
 
 ## Current network performance
+
 The right side is the neural network predicting moves
-<a href="https://imgflip.com/gif/2ih1r3"><img src="https://i.imgflip.com/2ih1r3.gif" title="Human vs. Bot"/></a>
+
+<img src="https://i.imgflip.com/2ih1r3.gif" title="Human vs Bot"/>
 
 ## Installation
+
 You will need the following installed on your machine: `tensorflow`, `PIL`, `numpy`, `pygame`
 
 I suggest you install `miniconda3` and create a new environment.
