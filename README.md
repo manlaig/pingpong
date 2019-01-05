@@ -16,7 +16,9 @@ I suggest you install `miniconda3` and create a new environment.
 
 Installation:
 
-`conda create -n name`
+`conda create -n pong`
+
+`source activate pong`
 
 `conda install tensorflow`
 
@@ -25,12 +27,3 @@ Installation:
 `conda install numpy`
 
 `pip install pygame` 
-
-## Reflection
-
-This is a project for me to learn about Deep Learning and especially get familiar with Recurrent Neural Networks and train neural networks with sequensive data. 
-
-Originally I wanted to train a neural network that can make accurate move predictions by looking at game screenshots
-
-One of the main challenges I ran into was collecting data and preparing it to train the network. Also, training the network to take into account the ball's velocity.
-
