@@ -10,20 +10,15 @@ The right side is the neural network predicting moves
 
 ## Installation
 
-You will need the following installed on your machine: `tensorflow`, `PIL`, `numpy`, `pygame`
-
 I suggest you install `miniconda3` and create a new environment.
 
 Installation:
 
-`conda create -n pong`
-
-`source activate pong`
-
-`conda install tensorflow`
-
-`conda install PIL`
-
-`conda install numpy`
-
-`pip install pygame` 
+```
+conda create -n pong
+source activate pong
+conda install tensorflow
+conda install PIL
+conda install numpy
+pip install pygame
+```
