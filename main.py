@@ -54,25 +54,25 @@ def collectDatasets(images=False):
         if images:
             pygame.image.save(screen, "Dataset/" + "u-" + str(countUp) + ".jpg")
         else:
-            dataset_file.write(getDatasetFileName(0))
+            dataset_file.write(getTextDataset(0))
         countUp += 1
 
     elif keys[pygame.K_DOWN] and countDown < 10000:
         if images:
             pygame.image.save(screen, "Dataset/" + "d-" + str(countDown) + ".jpg")
         else:
-            dataset_file.write(getDatasetFileName(1))
+            dataset_file.write(getTextDataset(1))
         countDown += 1
 
     elif countStill < 6000:
         if images:
             pygame.image.save(screen, "Dataset/" + "s-" + str(countStill) + ".jpg")
         else:
-            dataset_file.write(getDatasetFileName(2))
+            dataset_file.write(getTextDataset(2))
         countStill += 1
 
-
-def getDatasetFileName(label):
+# returns a string that will be written to the text dataset file
+def getTextDataset(label):
     s = (str(ballSpeed[0]) + "," + str(ballSpeed[1]) + "," + str(positionBall[0]) + "," + str(positionBall[1])
         + "," + str(positionP2[1]) + "," + str(label) + "\n")
     return s

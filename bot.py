@@ -34,6 +34,10 @@ class Bot:
         return ans
 
     
+    """
+        given ball speed, ball position, and bot position,
+        predict the right move
+    """
     def getMoveText(self, ballSpeed, positionBall, positionP2Y):
         arr = np.array([ballSpeed[0], ballSpeed[1], positionBall[0], positionBall[1], positionP2Y])
         arr = arr[..., np.newaxis]        

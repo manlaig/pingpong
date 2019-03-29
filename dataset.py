@@ -38,6 +38,10 @@ def format_array(array):
     return img_arr
 
 
+"""
+    load datasets from a file,
+    dataset format: [ballSpeedX, ballSpeedY, ballPosX, ballPosY, posP2Y, label]
+"""
 def load_data_text_file(filename="dataset.txt"):
     assert os.path.exists(filename), filename + " not found"
 
@@ -106,6 +110,10 @@ def getTotalImageCount():
     print("Total: " + str(uFiles + sFiles + dFiles))
 
 
+"""
+    prints out how many files for moving UP, DOWN, STILL there is
+    and prints out the total file count
+"""
 def getTotalTextDatasetCount(filename="dataset.txt"):
     assert os.path.exists(filename), filename + " not found"
 
